@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Runner"
+  short_description: "Run relevant tests and report actionable failures."
+  default_prompt: "Use $test-runner to run and summarize the relevant tests."

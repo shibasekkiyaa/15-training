@@ -1,27 +1,2 @@
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell -NoProfile -File .codex/hooks/block-destructive-sql.ps1"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Bash|apply_patch",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "powershell -NoProfile -File .codex/hooks/log-edits.ps1",
-            "statusMessage": "Logging file edit..."
-          }
-        ]
-      }
-    ]
-  }
 }
