@@ -30,6 +30,8 @@ public class ProductRepository : IProductRepository
         await _db.Products
             .AsNoTracking()
             .Where(p => p.IsActive && p.StockQuantity < threshold)
+            .OrderBy(p => p.StockQuantity)
+            .ThenBy(p => p.Sku)
             .Select(p => new LowStockProduct(
                 p.Id,
                 p.Sku,
@@ -41,8 +43,11 @@ public class ProductRepository : IProductRepository
                         i.Order!.CreatedAt >= soldSinceUtc &&
                         i.Order.Status != OrderStatus.Cancelled)
                     .Sum(i => (int?)i.Quantity) ?? 0))
-            .OrderBy(p => p.StockQuantity)
-            .ThenBy(p => p.Sku)
             .ToListAsync();
+
+    public async Task<IReadOnlyDictionary<int, Product>> GetByIdsAsync(IReadOnlyCollection<int> productIds) =>
+        await _db.Products
+            .Where(p => productIds.Contains(p.Id))
+            .ToDictionaryAsync(p => p.Id);
 
 }

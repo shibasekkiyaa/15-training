@@ -6,6 +6,7 @@ namespace OrderHub.Core.Interfaces;
 public interface IProductRepository
 {
     Task<IReadOnlyList<Product>> GetAllAsync();
+    Task<IReadOnlyDictionary<int, Product>> GetByIdsAsync(IReadOnlyCollection<int> productIds);
     Task<IReadOnlyList<Product>> GetActiveAsync();
     Task<IReadOnlyList<LowStockProduct>> GetLowStockAsync(int threshold, DateTime soldSinceUtc);
     Task<Product?> GetByIdAsync(int id);
