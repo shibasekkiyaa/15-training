@@ -1,0 +1,39 @@
+@model LowStockViewModel
+@{
+    ViewData["Title"] = "低庫存警示";
+}
+
+<h1 class="h3 mb-3">低庫存警示</h1>
+
+<form method="get" class="row g-3 align-items-end mb-4">
+    <div class="col-sm-4 col-md-3">
+        <label asp-for="Threshold" class="form-label"></label>
+        <input asp-for="Threshold" type="number" min="1" class="form-control" />
+        <span asp-validation-for="Threshold" class="text-danger"></span>
+    </div>
+    <div class="col-sm-auto">
+        <button type="submit" class="btn btn-primary">查詢</button>
+    </div>
+</form>
+
+<table class="table table-hover align-middle">
+    <thead>
+        <tr>
+            <th>SKU</th>
+            <th>名稱</th>
+            <th class="text-end">目前庫存</th>
+            <th class="text-end">近 30 天售出數量</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr class="@(product.StockQuantity < 5 ? "table-danger" : null)">
+                <td>@product.Sku</td>
+                <td>@product.Name</td>
+                <td class="text-end">@product.StockQuantity</td>
+                <td class="text-end">@product.SoldLast30Days</td>
+            </tr>
+        }
+    </tbody>
+</table>
