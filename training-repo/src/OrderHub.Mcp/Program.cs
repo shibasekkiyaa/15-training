@@ -15,7 +15,7 @@ builder.Logging.AddConsole(o => o.LogToStandardErrorThreshold = LogLevel.Trace);
 
 builder.Services.AddDbContext<OrderHubDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")
-        ?? "Server=localhost;Database=OrderHubTraining;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=True"));
+        ?? "Server=localhost\\MSSQLSERVER01;Database=OrderHubTraining;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=True"));
 
 // 與 OrderHub.Web 相同的分層接線:工具走 service / repository,不直接摸 DbContext
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
